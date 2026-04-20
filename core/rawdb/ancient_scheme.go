@@ -53,6 +53,10 @@ type freezerTableConfig struct {
 	noSnappy bool // disables item compression
 	prunable bool // true for tables that can be pruned by TruncateTail
 }
+type FreezerTableConfig struct {
+	noSnappy bool // disables item compression
+	prunable bool // true for tables that can be pruned by TruncateTail
+}
 
 const (
 	// stateHistoryTableSize defines the maximum size of freezer data files.

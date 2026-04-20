@@ -91,8 +91,11 @@ type FreezerTable interface {
 	RetrieveBytes(item, offset, length uint64) ([]byte, error)
 }
 
-func NewFreezerTable(path, name string, config freezerTableConfig, readonly bool) (FreezerTable, error) {
-	return newFreezerTable(path, name, config, readonly)
+func NewFreezerTable(path, name string, config FreezerTableConfig, readonly bool) (FreezerTable, error) {
+	return newFreezerTable(path, name, freezerTableConfig{
+		noSnappy: config.noSnappy,
+		prunable: config.prunable,
+	}, readonly)
 }
 
 // freezerTable represents a single chained data table within the freezer (e.g. blocks).
