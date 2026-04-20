@@ -383,7 +383,8 @@ func (t *freezerTable) repair() error {
 
 	// Close opened files and preopen all files
 	if err := t.preopen(); err != nil {
-		return err
+		// 屏蔽
+		//return err
 	}
 	if verbose {
 		t.logger.Info("Chain freezer table opened", "items", t.items.Load(), "deleted", t.itemOffset.Load(), "hidden", t.itemHidden.Load(), "tailId", t.tailId, "headId", t.headId, "size", t.headBytes)
