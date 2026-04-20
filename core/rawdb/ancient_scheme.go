@@ -54,8 +54,8 @@ type freezerTableConfig struct {
 	prunable bool // true for tables that can be pruned by TruncateTail
 }
 type FreezerTableConfig struct {
-	noSnappy bool // disables item compression
-	prunable bool // true for tables that can be pruned by TruncateTail
+	NoSnappy bool // disables item compression
+	Prunable bool // true for tables that can be pruned by TruncateTail
 }
 
 const (

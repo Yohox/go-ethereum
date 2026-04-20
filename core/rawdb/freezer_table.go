@@ -93,8 +93,8 @@ type FreezerTable interface {
 
 func NewFreezerTable(path, name string, config FreezerTableConfig, readonly bool) (FreezerTable, error) {
 	return newFreezerTable(path, name, freezerTableConfig{
-		noSnappy: config.noSnappy,
-		prunable: config.prunable,
+		noSnappy: config.NoSnappy,
+		prunable: config.Prunable,
 	}, readonly)
 }
 
