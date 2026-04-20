@@ -86,6 +86,15 @@ func (i *indexEntry) bounds(end *indexEntry) (startOffset, endOffset, fileId uin
 	return i.offset, end.offset, end.filenum
 }
 
+type FreezerTable interface {
+	Retrieve(item uint64) ([]byte, error)
+	RetrieveBytes(item, offset, length uint64) ([]byte, error)
+}
+
+func NewFreezerTable(path, name string, config freezerTableConfig, readonly bool) (FreezerTable, error) {
+	return newFreezerTable(path, name, config, readonly)
+}
+
 // freezerTable represents a single chained data table within the freezer (e.g. blocks).
 // It consists of a data file (snappy encoded arbitrary data blobs) and an indexEntry
 // file (uncompressed 64 bit indices into the data file).
