@@ -383,8 +383,7 @@ func (t *freezerTable) repair() error {
 
 	// Close opened files and preopen all files
 	if err := t.preopen(); err != nil {
-		// 屏蔽
-		//return err
+		return err
 	}
 	if verbose {
 		t.logger.Info("Chain freezer table opened", "items", t.items.Load(), "deleted", t.itemOffset.Load(), "hidden", t.itemHidden.Load(), "tailId", t.tailId, "headId", t.headId, "size", t.headBytes)
@@ -590,6 +589,9 @@ func (t *freezerTable) preopen() (err error) {
 	// Open all except head in RDONLY
 	for i := t.tailId; i < t.headId; i++ {
 		if _, err = t.openFile(i, openFreezerFileForReadOnly); err != nil {
+			if errors.Is(err, os.ErrNotExist) {
+				continue
+			}
 			return err
 		}
 	}
